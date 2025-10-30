@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+
+<div class="grid-container mt-4">
+    <div class="grid-x grid-padding-x align-center">
+        <div class="cell medium-6">
+            <div class="callout">
+                <h3>Login</h3>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="callout alert">@ViewBag.Error</div>
+                }
+
+                <form method="post" action="/Account/Login">
+                    <label>
+                        Email
+                        <input type="email" name="email" required />
+                    </label>
+
+                    <label>
+                        Password
+                        <input type="password" name="password" required />
+                    </label>
+
+                    <button type="submit" class="button expanded">Login</button>
+                </form>
+
+                <p class="text-center mt-2">
+                    Don’t have an account? <a asp-controller="Account" asp-action="Register">Register</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

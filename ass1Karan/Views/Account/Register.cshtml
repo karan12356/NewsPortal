@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="grid-container mt-4">
+    <div class="grid-x grid-padding-x align-center">
+        <div class="cell medium-6">
+            <div class="callout">
+                <h3>Register</h3>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="callout alert">@ViewBag.Error</div>
+                }
+                @if (ViewBag.Success != null)
+                {
+                    <div class="callout success">@ViewBag.Success</div>
+                }
+
+                <form method="post" action="/Account/Register">
+                    <label>
+                        Email
+                        <input type="email" name="email" required />
+                    </label>
+
+                    <label>
+                        Password
+                        <input type="password" id="password" name="password" required oninput="checkPasswordRules()" />
+                        <small id="passwordRules" class="help-text"></small>
+                    </label>
+
+                    <label>
+                        Confirm Password
+                        <input type="password" name="confirmPassword" required />
+                    </label>
+
+                    <button type="submit" class="button expanded">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkPasswordRules() {
+        const pass = document.getElementById('password').value;
+        const rules = [];
+
+        if (pass.length < 8) rules.push("At least 8 characters");
+        if (!/[A-Z]/.test(pass)) rules.push("1 uppercase letter");
+        if (!/[a-z]/.test(pass)) rules.push("1 lowercase letter");
+        if (!/[0-9]/.test(pass)) rules.push("1 number");
+
+        document.getElementById('passwordRules').textContent =
+            rules.length === 0 ? "✅ Strong password" : "❌ " + rules.join(", ");
+    }
+</script>

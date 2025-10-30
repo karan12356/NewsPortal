@@ -1,0 +1,50 @@
+﻿@model List<ass1Karan.Models.NewsArticle>
+
+
+@{
+    ViewData["Title"] = "Top News Headlines";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Top Headlines</h2>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success text-center">@TempData["Message"]</div>
+    }
+
+    <div class="row">
+        @foreach (var article in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    @if (!string.IsNullOrEmpty(article.UrlToImage))
+                    {
+                        <img src="@article.UrlToImage" class="card-img-top" alt="@article.Title" style="height:200px;object-fit:cover;">
+                    }
+
+                    <div class="card-body">
+                        <h5 class="card-title">@article.Title</h5>
+                        <p class="card-text">@article.Description</p>
+                        <a href="@article.Url" target="_blank" class="btn btn-primary btn-sm" style="display: block; text-align: center; width: 120px; margin: 0 auto;">Read More</a>
+
+                        @if (Context.Session.GetString("UserEmail") != null)
+                        {
+                            <form asp-controller="SavedArticles" asp-action="Save" method="post" class="d-inline">
+                                <input type="hidden" name="title" value="@article.Title" />
+                                <input type="hidden" name="description" value="@article.Description" />
+                                <input type="hidden" name="url" value="@article.Url" />
+                                <input type="hidden" name="imageUrl" value="@article.UrlToImage" />
+                                <button type="submit" class="btn btn-success btn-sm mt-2">Save Article</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <p class="text-muted mt-2"><small>Login to save articles</small></p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

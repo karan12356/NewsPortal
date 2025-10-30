@@ -1,0 +1,79 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    var userEmail = Context.Session.GetString("UserEmail");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - News Portal</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.2/dist/css/foundation.min.css" />
+   
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <ul class="dropdown menu" data-dropdown-menu>
+                <li class="menu-text text-warning"><a asp-controller="Home" asp-action="Index">News Portal</a></li>
+                <a asp-controller="Home" asp-action="Index">Home</a>
+                <a asp-controller="News" asp-action="Index">News</a>
+                <a asp-controller="SavedArticles" asp-action="MyArticles">My Saved Articles</a>
+            </ul>
+        </div>
+        <div class="top-bar-right">
+            <ul class="menu">
+                @if (!string.IsNullOrEmpty(userEmail))
+                {
+                    <li>
+                        <a class="alert button small"
+                           asp-controller="Account"
+                           asp-action="Logout">
+                             Logout
+                        </a>
+                    </li>
+                }
+                else
+                {
+                   
+                    <li>
+                        <a asp-controller="Account"
+                           asp-action="Login"
+                           class="button small">
+                            🔑 Login
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Account"
+                           asp-action="Register"
+                           class="button small">
+                            📝 Register
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+
+    <main class="grid-container mt-3">
+        @RenderBody()
+    </main>
+
+   
+    <footer class="footer bg-dark text-center mt-5 py-2">
+        <p class="text-light mb-0">&copy; @DateTime.Now.Year - News Portal | Made by Karan Chandyoke</p>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.2/dist/js/foundation.min.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+</body>
+</html>

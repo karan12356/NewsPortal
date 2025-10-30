@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = "Home";
+    var userEmail = Context.Session.GetString("UserEmail");
+}
+
+<div class="container mt-5">
+    <div class="text-center p-5 rounded shadow-lg" 
+         style="background: linear-gradient(135deg, #007bff, #6610f2); color: white;">
+
+        <h1 class="display-4 mb-3">
+            👋 Welcome @(!string.IsNullOrEmpty(userEmail) ? userEmail.Split('@')[0] : "Guest")!
+        </h1>
+
+        <p class="lead mb-4">
+            Stay informed with the latest news, curated for you by <strong>News Portal</strong>.
+        </p>
+        
+    </div>
+
+    <div class="button-group text-center mt-4">
+        @if (!string.IsNullOrEmpty(userEmail))
+        {
+            <a asp-controller="News" asp-action="Index" class="custom-btn primary-btn">
+                📰 View Top Headlines
+            </a>
+
+            <a asp-controller="SavedArticles" asp-action="MyArticles" class="custom-btn success-btn">
+                💾 Saved Articles
+            </a>
+        }
+        else
+        {
+            <a asp-controller="Account" asp-action="Login" class="custom-btn primary-btn">
+                🔑 Login
+            </a>
+
+            <a asp-controller="Account" asp-action="Register" class="custom-btn success-btn">
+                📝 Register
+            </a>
+        }
+    </div>
+
+    </div>
+
+    
+</div>
