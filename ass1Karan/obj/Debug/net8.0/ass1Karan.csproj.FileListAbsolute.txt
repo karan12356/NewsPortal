@@ -169,3 +169,4 @@ C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\refint\ass1Kara
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\ass1Karan.pdb
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\ass1Karan.genruntimeconfig.cache
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\ref\ass1Karan.dll
+C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\ass1Karan.sourcelink.json

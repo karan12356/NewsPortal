@@ -3,12 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\karan\\source\\repos\\ass1Karan\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|c:\\users\\karan\\source\\repos\\ass1karan\\ass1karan\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|solutionrelative:ass1karan\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|c:\\users\\karan\\source\\repos\\ass1karan\\ass1karan\\services\\newsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|solutionrelative:ass1karan\\services\\newsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|c:\\users\\karan\\source\\repos\\ass1karan\\ass1karan\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|solutionrelative:ass1karan\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|c:\\users\\karan\\source\\repos\\ass1karan\\ass1karan\\controllers\\accountcontroller1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|solutionrelative:ass1karan\\controllers\\accountcontroller1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|c:\\users\\karan\\source\\repos\\ass1karan\\ass1karan\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|solutionrelative:ass1karan\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|c:\\users\\karan\\source\\repos\\ass1karan\\ass1karan\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|solutionrelative:ass1karan\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|c:\\users\\karan\\source\\repos\\ass1karan\\ass1karan\\controllers\\newscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|solutionrelative:ass1karan\\controllers\\newscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,25 +39,73 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "ass1Karan\\Views\\Home\\Index.cshtml",
-              "ToolTip": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "ass1Karan\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAIwB0AAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-30T20:18:11.152Z",
+              "Title": "NewsService.cs",
+              "DocumentMoniker": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Services\\NewsService.cs",
+              "RelativeDocumentMoniker": "ass1Karan\\Services\\NewsService.cs",
+              "ToolTip": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Services\\NewsService.cs",
+              "RelativeToolTip": "ass1Karan\\Services\\NewsService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T06:36:39.875Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "ass1Karan\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "ass1Karan\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T06:36:33.934Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "NewsController.cs",
+              "DocumentMoniker": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Controllers\\NewsController.cs",
+              "RelativeDocumentMoniker": "ass1Karan\\Controllers\\NewsController.cs",
+              "ToolTip": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Controllers\\NewsController.cs",
+              "RelativeToolTip": "ass1Karan\\Controllers\\NewsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T06:28:17.19Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AccountController1.cs",
+              "DocumentMoniker": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Controllers\\AccountController1.cs",
+              "RelativeDocumentMoniker": "ass1Karan\\Controllers\\AccountController1.cs",
+              "ToolTip": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Controllers\\AccountController1.cs",
+              "RelativeToolTip": "ass1Karan\\Controllers\\AccountController1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T06:28:02.265Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "ass1Karan\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "ass1Karan\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-30T20:18:11.152Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "ass1Karan\\Views\\Shared\\_Layout.cshtml",
               "ToolTip": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Views\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "ass1Karan\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABwAAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-10-30T20:17:58.337Z"
             }
