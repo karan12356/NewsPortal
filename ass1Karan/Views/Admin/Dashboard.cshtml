@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">🛠️ Admin Dashboard</h2>
+
+    <div class="row text-center mb-4 admin-summary">
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-primary">
+                <div class="card-body">
+                    <h4>Total Users 👥</h4>
+                    <h3 class="text-primary">@ViewBag.TotalUsers</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-success">
+                <div class="card-body">
+                    <h4>Total Saved Articles 📰</h4>
+                    <h3 class="text-success">@ViewBag.SavedArticles</h3>
+                    <a asp-controller="SavedArticles" asp-action="AdminArticles" class="btn btn-outline-success btn-sm mt-2">
+                        View All Saved Articles
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-info">
+                <div class="card-body">
+                    <h4>Activity Logs 🧾</h4>
+                    <h3 class="text-info">@ViewBag.TotalActivities</h3>
+                    <a asp-controller="ActivityLog" asp-action="Index" class="btn btn-outline-info btn-sm mt-2">
+                        View Recent Activities
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <h4 class="mb-3">👤 User Management</h4>
+    <table class="table table-bordered table-striped shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>Email</th>
+                <th>Role</th>
+                <th style="width:150px;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.Users != null)
+            {
+                foreach (var user in ViewBag.Users)
+                {
+                    <tr>
+                        <td>@user.Email</td>
+                        <td>
+                            <span class="badge @(user.Role == "Admin" ? "bg-danger" : "bg-secondary")">
+                                @user.Role
+                            </span>
+                        </td>
+                        <td>
+                            @if (user.Role == "Admin")
+                            {
+                                <form asp-action="DemoteToUser" method="post" class="d-inline">
+                                    <input type="hidden" name="email" value="@user.Email" />
+                                    <button class="btn btn-warning btn-sm">Demote</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form asp-action="PromoteToAdmin" method="post" class="d-inline">
+                                    <input type="hidden" name="email" value="@user.Email" />
+                                    <button class="btn btn-success btn-sm">Promote</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3" class="text-center text-muted">No users found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

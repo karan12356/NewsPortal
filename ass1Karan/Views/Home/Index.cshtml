@@ -9,7 +9,11 @@
          style="background: linear-gradient(135deg, #007bff, #6610f2); color: white;">
 
         <h1 class="display-4 mb-3">
-            👋 Welcome @(!string.IsNullOrEmpty(userEmail) ? userEmail.Split('@')[0] : "Guest")!
+            👋 Welcome @(
+            User.Identity.IsAuthenticated
+            ? User.Identity.Name.Split('@')[0]
+                        : "Guest"
+                        )!
         </h1>
 
         <p class="lead mb-4">

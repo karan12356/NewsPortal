@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ass1Karan.Models.SavedArticle>
+
+@{
+    ViewData["Title"] = "All Saved Articles (Admin)";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">All Saved Articles</h2>
+    <p class="text-muted text-center">Total Saved Articles: <strong>@ViewBag.TotalArticles</strong></p>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center">No saved articles found.</div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var article in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        @if (!string.IsNullOrEmpty(article.ImageUrl))
+                        {
+                            <img src="@article.ImageUrl" class="card-img-top" alt="News Image" style="height:200px;object-fit:cover;">
+                        }
+
+                        <div class="card-body">
+                            <h5 class="card-title">@article.Title</h5>
+                            <p class="card-text text-truncate">@article.Description</p>
+                            <p class="text-muted mb-1"><small><strong>Saved by:</strong> @article.UserEmail</small></p>
+                            <p class="text-muted"><small><strong>Saved on:</strong> @article.SavedAt.ToString("dd MMM yyyy, HH:mm")</small></p>
+
+                            <a href="@article.Url" target="_blank" class="btn btn-outline-primary btn-sm w-100 mb-2">Read Article</a>
+                        </div>
+
+                        <div class="card-footer">
+                            <h6>Comments</h6>
+                            @if (article.Comments != null && article.Comments.Any())
+                            {
+                                @foreach (var c in article.Comments.OrderByDescending(x => x.CreatedAt))
+                                {
+                                    <div class="border p-2 mb-2">
+                                        <div class="d-flex justify-content-between">
+                                            <small class="text-muted">@c.AuthorEmail</small>
+                                            <small class="text-muted">@c.CreatedAt.ToString("dd MMM yyyy, HH:mm")</small>
+                                        </div>
+                                        <p class="mb-1">@c.Content</p>
+
+                                        <form asp-action="DeleteComment" method="post">
+                                            <input type="hidden" name="id" value="@c.Id" />
+                                            <button class="btn btn-sm btn-danger">Delete Comment</button>
+                                        </form>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted"><small>No comments yet.</small></p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

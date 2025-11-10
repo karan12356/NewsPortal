@@ -1,12 +1,169 @@
 ﻿@model List<ass1Karan.Models.NewsArticle>
 
-
 @{
     ViewData["Title"] = "Top News Headlines";
+    var categories = new[] { "", "business", "entertainment", "general", "health", "science", "sports", "technology" };
+    int page = (int)(ViewData["Page"] ?? 1);
+    int pageSize = (int)(ViewData["PageSize"] ?? 8);
+    int total = (int)(ViewData["TotalResults"] ?? 0);
+    string currentCategory = (string)ViewData["Category"] ?? "";
+    string currentQuery = (string)ViewData["Query"] ?? "";
+    string currentSort = (string)ViewData["Sort"] ?? "newest";
+    int totalPages = (int)Math.Ceiling(total / (double)pageSize);
 }
+<style>
+    /* ---------- NEWS FILTER FORM FIX ---------- */
+
+    .news-filters {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        background: #fff;
+        border-radius: 10px;
+        padding: 1rem 1.5rem;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        margin-bottom: 2rem;
+    }
+
+        .news-filters select,
+        .news-filters input {
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.95rem;
+            min-width: 180px;
+            transition: all 0.3s ease;
+        }
+
+            .news-filters select:focus,
+            .news-filters input:focus {
+                border-color: #00509e;
+                box-shadow: 0 0 0 3px rgba(0, 80, 158, 0.15);
+            }
+
+        .news-filters button {
+            border-radius: 8px;
+            padding: 0.55rem 1.2rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, #003566, #00509e);
+            border: none;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+            .news-filters button:hover {
+                background: linear-gradient(90deg, #002b5b, #004080);
+                transform: translateY(-2px);
+            }
+
+
+    /* ---------- PAGINATION FIX ---------- */
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+        gap: 8px;
+        padding-left: 0;
+        margin-top: 2rem;
+    }
+
+        .pagination .page-item {
+            display: inline-block;
+        }
+
+        .pagination .page-link {
+            display: inline-block;
+            color: #00509e;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 8px 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+            .pagination .page-link:hover {
+                background: #00509e;
+                color: #fff;
+            }
+
+        .pagination .active .page-link {
+            background: #003566;
+            color: #fff;
+            border-color: #003566;
+        }
+
+        .pagination .disabled .page-link {
+            color: #999;
+            background-color: #f8f9fa;
+            border-color: #ddd;
+            pointer-events: none;
+        }
+
+        /* Remove bullets */
+        .pagination li {
+            list-style: none;
+        }
+
+</style>
 
 <div class="container mt-4">
     <h2 class="text-center mb-4">Top Headlines</h2>
+
+    <form method="get" class="row g-2 mb-3 news-filters">
+        <div class="col-md-3">
+            <select name="category" class="form-select">
+                <option value="">All Categories</option>
+                @foreach (var c in categories.Where(x => !string.IsNullOrEmpty(x)))
+                {
+                    if (c == currentCategory)
+                    {
+                        <text>
+                        <option value="@c" selected>@(char.ToUpper(c[0]) + c.Substring(1))</option>
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                        <option value="@c">@(char.ToUpper(c[0]) + c.Substring(1))</option>
+                        </text>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="col-md-5">
+            <input name="q" value="@currentQuery" class="form-control" placeholder="Search headlines..." />
+        </div>
+
+        <div class="col-md-2">
+            <select name="sort" class="form-select">
+                @if (currentSort == "newest")
+                {
+                    <text>
+                    <option value="newest" selected>Newest</option>
+                    <option value="oldest">Oldest</option>
+                    </text>
+                }
+                else
+                {
+                    <text>
+                    <option value="newest">Newest</option>
+                    <option value="oldest" selected>Oldest</option>
+                    </text>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Apply</button>
+        </div>
+    </form>
 
     @if (TempData["Message"] != null)
     {
@@ -16,35 +173,60 @@
     <div class="row">
         @foreach (var article in Model)
         {
-            <div class="col-md-4 mb-4">
+            <div class="col-md-3 mb-4">
                 <div class="card h-100 shadow-sm">
                     @if (!string.IsNullOrEmpty(article.UrlToImage))
                     {
-                        <img src="@article.UrlToImage" class="card-img-top" alt="@article.Title" style="height:200px;object-fit:cover;">
+                        <img src="@article.UrlToImage" class="card-img-top" alt="@article.Title"
+                             style="height:160px;object-fit:cover;">
                     }
 
-                    <div class="card-body">
-                        <h5 class="card-title">@article.Title</h5>
-                        <p class="card-text">@article.Description</p>
-                        <a href="@article.Url" target="_blank" class="btn btn-primary btn-sm" style="display: block; text-align: center; width: 120px; margin: 0 auto;">Read More</a>
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="card-title">@article.Title</h6>
+                        <p class="card-text text-truncate">@article.Description</p>
+                        <a href="@article.Url" target="_blank" class="btn btn-outline-primary btn-sm mt-auto">Read More</a>
 
-                        @if (Context.Session.GetString("UserEmail") != null)
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            <form asp-controller="SavedArticles" asp-action="Save" method="post" class="d-inline">
+                            <form asp-controller="SavedArticles" asp-action="Save" method="post" class="mt-2">
                                 <input type="hidden" name="title" value="@article.Title" />
                                 <input type="hidden" name="description" value="@article.Description" />
                                 <input type="hidden" name="url" value="@article.Url" />
                                 <input type="hidden" name="imageUrl" value="@article.UrlToImage" />
-                                <button type="submit" class="btn btn-success btn-sm mt-2">Save Article</button>
+                                <button type="submit" class="btn btn-success btn-sm w-100">Save Article</button>
                             </form>
                         }
                         else
                         {
-                            <p class="text-muted mt-2"><small>Login to save articles</small></p>
+                            <p class="text-muted text-center mt-2">
+                                <small>Login to save articles</small>
+                            </p>
                         }
                     </div>
                 </div>
             </div>
         }
     </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            @{
+                var prevDisabled = page <= 1 ? "disabled" : "";
+                var nextDisabled = page >= totalPages ? "disabled" : "";
+            }
+            <li class="page-item @prevDisabled">
+                <a class="page-link" href="?category=@currentCategory&q=@currentQuery&sort=@currentSort&page=@(page - 1)">Previous</a>
+            </li>
+            @for (int i = 1; i <= Math.Max(1, totalPages); i++)
+            {
+                var activeClass = i == page ? "active" : "";
+                <li class="page-item @activeClass">
+                    <a class="page-link" href="?category=@currentCategory&q=@currentQuery&sort=@currentSort&page=@i">@i</a>
+                </li>
+            }
+            <li class="page-item @nextDisabled">
+                <a class="page-link" href="?category=@currentCategory&q=@currentQuery&sort=@currentSort&page=@(page + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>

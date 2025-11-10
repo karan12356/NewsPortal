@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ass1Karan.Models.ActivityLog>
+
+@{
+    ViewData["Title"] = "Activity Logs";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">🧾 Recent Activity Logs</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center">No recent activities found.</div>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped shadow-sm activity-table">
+            <thead class="table-dark">
+                <tr>
+                    <th>User ID</th>
+                    <th>Action</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var log in Model)
+                {
+                    <tr>
+                        <td>@log.UserId</td>
+                        <td>@log.Action</td>
+                        <td>@log.Timestamp.ToString("dd MMM yyyy, HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

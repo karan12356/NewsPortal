@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -22,7 +23,8 @@ namespace ass1Karan.Services
             _logger = logger;
         }
 
-        public async Task<List<NewsArticle>> GetTopHeadlinesAsync()
+        public async Task<(List<NewsArticle> Articles, int TotalResults)> GetTopHeadlinesAsync(
+     string category = null, string query = null, int page = 1, int pageSize = 8)
         {
             try
             {
@@ -32,47 +34,88 @@ namespace ass1Karan.Services
 
                 if (string.IsNullOrEmpty(apiUrl) || string.IsNullOrEmpty(apiKey))
                 {
-                    _logger.LogWarning("News API configuration is missing or incomplete.");
-                    return new List<NewsArticle>();
+                    _logger.LogWarning("News API configuration missing.");
+                    return (new List<NewsArticle> { new NewsArticle { Title = "News service configuration error", Description = "Unable to load live news." } }, 0);
                 }
 
-                string requestUrl = $"{apiUrl}?country={country}&apiKey={apiKey}";
-                _logger.LogInformation($"Fetching news from: {requestUrl}");
+                var sb = new System.Text.StringBuilder();
+                sb.Append($"{apiUrl}?apiKey={apiKey}");
+
+                if (!string.IsNullOrEmpty(country) && string.IsNullOrEmpty(query))
+                    sb.Append($"&country={Uri.EscapeDataString(country)}");
+
+                if (!string.IsNullOrEmpty(category))
+                    sb.Append($"&category={Uri.EscapeDataString(category)}");
+
+                if (!string.IsNullOrEmpty(query))
+                    sb.Append($"&q={Uri.EscapeDataString(query)}");
+
+                sb.Append($"&page={page}&pageSize={pageSize}");
+                var requestUrl = sb.ToString();
+
+                _logger.LogInformation("NewsService requesting: {Url}", requestUrl);
+
+                if (!_httpClient.DefaultRequestHeaders.Contains("User-Agent"))
+                    _httpClient.DefaultRequestHeaders.Add("User-Agent", "NewsPortalApp/1.0");
+                if (!_httpClient.DefaultRequestHeaders.Accept.Any(h => h.MediaType == "application/json"))
+                    _httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
                 var response = await _httpClient.GetAsync(requestUrl);
 
+                var respBody = await response.Content.ReadAsStringAsync();
+
                 if (!response.IsSuccessStatusCode)
                 {
-                    _logger.LogWarning($"Failed to fetch news. Status code: {response.StatusCode}");
-                    return new List<NewsArticle>();
+                    string reason = response.ReasonPhrase ?? "Unknown Error";
+                    _logger.LogWarning($"News API failed: {response.StatusCode} - {reason}");
+
+                    string userMessage = response.StatusCode switch
+                    {
+                        System.Net.HttpStatusCode.Unauthorized => "API Key is invalid or expired. Please check credentials.",
+                        System.Net.HttpStatusCode.BadRequest => "Invalid request sent to News service. Try changing category or keyword.",
+                        System.Net.HttpStatusCode.TooManyRequests => "Rate limit exceeded. Please wait and try again.",
+                        _ => "Unable to fetch live headlines right now. Please try again later."
+                    };
+
+                    return (
+                        new List<NewsArticle>
+                        {
+            new NewsArticle
+            {
+                Title = "Service Unavailable",
+                Description = userMessage
+            }
+                        },
+                        0
+                    );
                 }
 
-                var json = await response.Content.ReadAsStringAsync();
 
-                var result = JsonSerializer.Deserialize<NewsApiResponse>(json, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+                var result = JsonSerializer.Deserialize<NewsApiResponse>(respBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-                _logger.LogInformation($"Fetched {result?.Articles?.Count ?? 0} articles successfully.");
+                _logger.LogInformation("Fetched {Count} articles, totalResults={Total}", result?.Articles?.Count ?? 0, result?.TotalResults ?? 0);
 
-                return result?.Articles ?? new List<NewsArticle>();
+                if (result?.Articles == null || result.Articles.Count == 0)
+                    return (new List<NewsArticle> { new NewsArticle { Title = "No News Found", Description = "No top headlines available." } }, 0);
+
+                return (result.Articles, result.TotalResults);
             }
             catch (HttpRequestException ex)
             {
-                _logger.LogError(ex, "Network error while calling the News API.");
-                return new List<NewsArticle>();
+                _logger.LogError(ex, "Network error calling News API.");
+                return (new List<NewsArticle> { new NewsArticle { Title = "Network Error", Description = "Please check your internet connection." } }, 0);
             }
             catch (JsonException ex)
             {
-                _logger.LogError(ex, "Error parsing the News API response JSON.");
-                return new List<NewsArticle>();
+                _logger.LogError(ex, "JSON parse error from News API.");
+                return (new List<NewsArticle> { new NewsArticle { Title = "Data Parsing Error", Description = "Invalid news data received." } }, 0);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Unexpected error occurred while fetching top headlines.");
-                return new List<NewsArticle>();
+                _logger.LogError(ex, "Unexpected error fetching top headlines.");
+                return (new List<NewsArticle> { new NewsArticle { Title = "Unexpected Error", Description = "Something went wrong while fetching news." } }, 0);
             }
         }
+
     }
 }

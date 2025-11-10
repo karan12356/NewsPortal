@@ -10,6 +10,9 @@ C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\ass1Karan.pdb
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Azure.Identity.dll
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Humanizer.dll
+C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Microsoft.Build.Locator.dll
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
@@ -30,6 +33,8 @@ C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Microsoft.Exten
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
@@ -152,6 +157,7 @@ C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\ass1Karan.cspro
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\ass1Karan.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\ass1Karan.RazorAssemblyInfo.cache
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\ass1Karan.RazorAssemblyInfo.cs
+C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\ass1Karan.sourcelink.json
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\rjimswa.dswa.cache.json
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
@@ -169,4 +175,3 @@ C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\refint\ass1Kara
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\ass1Karan.pdb
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\ass1Karan.genruntimeconfig.cache
 C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\ref\ass1Karan.dll
-C:\Users\karan\source\repos\ass1Karan\ass1Karan\obj\Debug\net8.0\ass1Karan.sourcelink.json

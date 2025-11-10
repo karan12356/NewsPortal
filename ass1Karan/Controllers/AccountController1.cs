@@ -1,19 +1,26 @@
 ﻿using ass1Karan.Models;
+using ass1Karan.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace ass1Karan.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly StudentDBContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ActivityLogService _activityLogService;
 
-        public AccountController(StudentDBContext context)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, ActivityLogService activityLogService)
         {
-            _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
+            _activityLogService = activityLogService;
         }
 
         public IActionResult Register()
@@ -22,11 +29,10 @@ namespace ass1Karan.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(string email, string password, string confirmPassword)
+        public async Task<IActionResult> Register(string email, string password, string confirmPassword)
         {
             try
             {
-                
                 if (password != confirmPassword)
                 {
                     ViewBag.Error = "Passwords do not match.";
@@ -39,49 +45,38 @@ namespace ass1Karan.Controllers
                     return View();
                 }
 
-                
-                if (_context.Users.Any(u => u.Email == email))
+                var existingUser = await _userManager.FindByEmailAsync(email);
+                if (existingUser != null)
                 {
                     ViewBag.Error = "Email already registered.";
                     return View();
                 }
 
-                
-                string hashedPassword = HashPassword(password);
+                var user = new IdentityUser { UserName = email, Email = email, EmailConfirmed = true };
+                var result = await _userManager.CreateAsync(user, password);
 
-                
-                var user = new User { Email = email, PasswordHash = hashedPassword };
-                _context.Users.Add(user);
-                _context.SaveChanges();
-
-                ViewBag.Success = "Registration successful! You can now log in.";
-                return View();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in Register(): {ex.Message}");
-                ViewBag.Error = "Something went wrong during registration. Please try again later.";
-                return View();
-            }
-        }
-
-        private string HashPassword(string password)
-        {
-            try
-            {
-                using (var sha = SHA256.Create())
+                if (result.Succeeded)
                 {
-                    var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
-                    var builder = new StringBuilder();
-                    foreach (var b in bytes)
-                        builder.Append(b.ToString("x2"));
-                    return builder.ToString();
+                    if (await _roleManager.RoleExistsAsync("User"))
+                        await _userManager.AddToRoleAsync(user, "User");
+
+                    await _activityLogService.LogAsync(user.Id, $"Registered a new account ({user.Email}).");
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _activityLogService.LogAsync(user.Id, $"User '{user.Email}' logged in after registration.");
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.Error = string.Join("; ", result.Errors.Select(e => e.Description));
+                    return View();
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in HashPassword(): {ex.Message}");
-                throw new Exception("Password hashing failed.");
+                TempData["ErrorMessage"] = "An unexpected error occurred during registration.";
+                Console.WriteLine($"[Register Error]: {ex.Message}");
+                return View();
             }
         }
 
@@ -91,7 +86,7 @@ namespace ass1Karan.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(string email, string password)
+        public async Task<IActionResult> Login(string email, string password)
         {
             try
             {
@@ -101,45 +96,52 @@ namespace ass1Karan.Controllers
                     return View();
                 }
 
-                var user = _context.Users.FirstOrDefault(u => u.Email == email);
+                var user = await _userManager.FindByEmailAsync(email);
                 if (user == null)
                 {
                     ViewBag.Error = "Email not registered.";
                     return View();
                 }
 
-                string hashedPassword = HashPassword(password);
-
-                if (user.PasswordHash != hashedPassword)
+                var result = await _signInManager.PasswordSignInAsync(user, password, isPersistent: false, lockoutOnFailure: false);
+                if (result.Succeeded)
                 {
-                    ViewBag.Error = "Invalid password.";
-                    return View();
+                    await _activityLogService.LogAsync(user.Id, $"User '{user.Email}' logged in.");
+
+                    if (await _userManager.IsInRoleAsync(user, "Admin"))
+                        return RedirectToAction("Dashboard", "Admin");
+
+                    return RedirectToAction("Index", "News");
                 }
 
-               
-                HttpContext.Session.SetString("UserEmail", user.Email);
-
-                return RedirectToAction("Index", "News");
+                ViewBag.Error = "Invalid credentials.";
+                return View();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in Login(): {ex.Message}");
-                ViewBag.Error = "Login failed due to a system error. Please try again.";
+                TempData["ErrorMessage"] = "An unexpected error occurred during login.";
+                Console.WriteLine($"[Login Error]: {ex.Message}");
                 return View();
             }
         }
 
-        public IActionResult Logout()
+        [HttpPost]
+        public async Task<IActionResult> Logout()
         {
             try
             {
-                HttpContext.Session.Clear();
+                var user = await _userManager.GetUserAsync(User);
+                if (user != null)
+                    await _activityLogService.LogAsync(user.Id, $"User '{user.Email}' logged out.");
+
+                await _signInManager.SignOutAsync();
+                TempData["Message"] = "You have been logged out successfully.";
                 return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in Logout(): {ex.Message}");
-                ViewBag.Error = "Unable to logout. Please try again later.";
+                TempData["ErrorMessage"] = "An error occurred while logging out.";
+                Console.WriteLine($"[Logout Error]: {ex.Message}");
                 return RedirectToAction("Login", "Account");
             }
         }
