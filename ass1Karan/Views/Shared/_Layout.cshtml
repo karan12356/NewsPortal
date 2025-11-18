@@ -1,4 +1,7 @@
-﻿@using Microsoft.AspNetCore.Http
+﻿@removeTagHelper Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers
+@removeTagHelper Microsoft.AspNetCore.Mvc.TagHelpers.LabelTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
@@ -44,6 +47,7 @@
                         👋 Welcome, @(userEmail ?? User.Identity.Name)
                     </li>
                     <li><a class="nav-link" asp-controller="Profile" asp-action="Index">👤 Profile</a></li>
+                    <li><a class="nav-link" asp-controller="Pps" asp-action="Index">Pps</a></li>
 
                     <li>
                         <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">

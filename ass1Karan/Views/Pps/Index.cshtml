@@ -1,0 +1,268 @@
+﻿@{
+    ViewData["Title"] = "Palliative Scale";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<div id="customAlert"
+     style="display:none;
+            position:fixed;
+            left:50%;
+            top:50%;
+            transform:translate(-50%, -50%);
+            z-index:99999;
+            min-width:330px;
+            max-width:90%;
+            padding:25px 28px;
+            border-radius:12px;
+            background:#5b2e90;
+            color:white;
+            text-align:center;
+            font-size:18px;
+            font-weight:600;
+            line-height:1.45;
+            box-shadow:0 10px 30px rgba(0,0,0,0.35);
+            opacity:0;
+            transition:opacity .35s ease;">
+</div>
+
+<div class="container mt-4 mb-5 p-4 shadow rounded bg-white" style="max-width:900px;">
+
+    <h3 class="text-center mb-3" style="color:#4a3aff;font-size:26px;font-weight:700;">Palliative Performance Scale</h3>
+
+    <p class="text-center mb-4" style="font-size:15px;color:#666;">
+        Use this tool to quickly recognize functional decline and estimate hospice eligibility.
+    </p>
+
+    <select id="diagnosis" class="form-control py-2 mb-4 text-center" style="font-size:16px;border-radius:10px;">
+        <option value="">Choose a Diagnosis</option>
+        <option>ALS</option>
+        <option>Alzheimer's</option>
+        <option>Cancer</option>
+        <option>Heart Disease</option>
+        <option>HIV and AIDS</option>
+        <option>Liver Disease</option>
+        <option>Lung Disease</option>
+        <option>Renal Disease</option>
+        <option>Sepsis</option>
+    </select>
+
+    <div class="pps-block mb-4">
+        <label class="label-head">Ambulation</label>
+        <div class="msg-text" id="ambMsg"></div>
+        <div class="slider-row"><div id="ambSlider"></div><span class="slider-value" id="ambValue">0</span></div>
+    </div>
+
+    <div class="pps-block mb-4">
+        <label class="label-head">Activity</label>
+        <div class="msg-text" id="actMsg"></div>
+        <div class="slider-row"><div id="actSlider"></div><span class="slider-value" id="actValue">0</span></div>
+    </div>
+
+    <div class="pps-block mb-4">
+        <label class="label-head">Evidence of Disease</label>
+        <div class="msg-text" id="eviMsg"></div>
+        <div class="slider-row"><div id="eviSlider"></div><span class="slider-value" id="eviValue">0</span></div>
+    </div>
+
+    <div class="pps-block mb-4">
+        <label class="label-head">Self Care</label>
+        <div class="msg-text" id="selfMsg"></div>
+        <div class="slider-row"><div id="selfSlider"></div><span class="slider-value" id="selfValue">0</span></div>
+    </div>
+
+    <div class="pps-block mb-4">
+        <label class="label-head">Intake</label>
+        <div class="msg-text" id="intakeMsg"></div>
+        <div class="slider-row"><div id="intakeSlider"></div><span class="slider-value" id="intakeValue">0</span></div>
+    </div>
+
+    <div class="pps-block mb-4">
+        <label class="label-head">Level of Consciousness</label>
+        <div class="msg-text" id="conMsg"></div>
+        <div class="slider-row"><div id="conSlider"></div><span class="slider-value" id="conValue">0</span></div>
+    </div>
+
+    <div class="d-flex justify-content-between mt-5">
+        <button id="calc" class="btn btn-primary px-4 py-2" style="font-size:17px;width:48%;border-radius:8px;">
+            CALCULATE RESULT
+        </button>
+        <button id="save" class="btn btn-warning px-4 py-2" style="font-size:17px;width:48%;border-radius:8px;">
+            SAVE TO DATABASE
+        </button>
+    </div>
+
+</div>
+
+<style>
+
+    .pps-block {
+        padding-bottom: 10px;
+    }
+
+    .label-head {
+        font-weight: 600;
+        color: #333;
+        font-size: 15px;
+        margin-bottom: 4px;
+        display: block;
+    }
+
+    .msg-text {
+        color: #4a3aff;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 6px;
+        min-height: 16px;
+    }
+
+    .slider-row {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding-top: 4px;
+    }
+
+    .slider-value {
+        width: 50px;
+        padding: 5px 8px;
+        background: #f5f5f5;
+        border-radius: 14px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+        border: 1px solid #ddd;
+    }
+
+    .noUi-target {
+        width: 100%;
+        background: #ffe7c5;
+        border-radius: 10px;
+        height: 10px;
+    }
+
+    .noUi-connect {
+        background: #ffb655 !important;
+    }
+
+    .noUi-handle {
+        background: #ffa833 !important;
+        border: none !important;
+        height: 20px !important;
+        width: 20px !important;
+        border-radius: 50% !important;
+        top: -6px !important;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+    }
+
+</style>
+
+
+<script>
+
+    function showAlert(msg) {
+        let box = $("#customAlert")
+        box.text(msg)
+        box.show()
+        setTimeout(() => box.css("opacity", "1"), 30)
+        setTimeout(() => {
+            box.css("opacity", "0")
+            setTimeout(() => box.hide(), 350)
+        }, 3000)
+    }
+
+    $(document).ready(function () {
+
+        let ambMsgs={0:"Slide to see PPS rating",10:"Totally bed bound",20:"Totally bed bound",30:"Totally bed bound",40:"Mainly in bed",50:"Mainly sit/lie",60:"Reduced",70:"Reduced",80:"Full",90:"Full",100:"Full"}
+        let actMsgs={0:"Slide to see PPS rating",10:"Unable to do any activity",20:"Unable to do any activity",30:"Unable to do any activity",40:"Unable to do most",50:"Unable to work",60:"Unable to do house/hobby work",70:"Unable to do normal",80:"Normal with effort",90:"Normal",100:"Normal"}
+        let eviMsgs={0:"Slide to see PPS rating",10:"Extensive disease",20:"Extensive disease",30:"Extensive disease",40:"Extensive disease",50:"Extensive disease",60:"Significant disease",70:"Significant disease",80:"Some evidence",90:"Some evidence",100:"No evidence"}
+        let selfMsgs={0:"Slide to see PPS rating",10:"Total care",20:"Total care",30:"Total care",40:"Mainly assistance",50:"Considerable assistance",60:"Occasional assistance",70:"Full",80:"Full",90:"Full",100:"Full"}
+        let intakeMsgs={0:"Slide to see PPS rating",10:"Mouth care only",20:"Minimal sips",30:"Normal / Reduced",40:"Normal / Reduced",50:"Normal / Reduced",60:"Normal / Reduced",70:"Normal / Reduced",80:"Normal / Reduced",90:"Normal",100:"Normal"}
+        let conMsgs={0:"Slide to see PPS rating",10:"Drowsy or coma",20:"Full / drowsy",30:"Full / drowsy",40:"Full / drowsy",50:"Full or confusion",60:"Full or confusion",70:"Full",80:"Full",90:"Full",100:"Full"}
+
+        function s(el){return noUiSlider.create(el,{start:0,step:10,range:{min:0,max:100},connect:true})}
+
+        s(ambSlider); s(actSlider); s(eviSlider); s(selfSlider); s(intakeSlider); s(conSlider)
+
+        $("div[id$='Slider']").attr("disabled", true)
+
+        $("#diagnosis").change(function(){
+            if($(this).val()==="") $("div[id$='Slider']").attr("disabled", true)
+            else $("div[id$='Slider']").removeAttr("disabled")
+        });
+
+        ambSlider.noUiSlider.on("update",v=>{ let x=parseInt(v[0]); $("#ambValue").text(x); $("#ambMsg").text(ambMsgs[x]) })
+        actSlider.noUiSlider.on("update",v=>{ let x=parseInt(v[0]); $("#actValue").text(x); $("#actMsg").text(actMsgs[x]) })
+        eviSlider.noUiSlider.on("update",v=>{ let x=parseInt(v[0]); $("#eviValue").text(x); $("#eviMsg").text(eviMsgs[x]) })
+        selfSlider.noUiSlider.on("update",v=>{ let x=parseInt(v[0]); $("#selfValue").text(x); $("#selfMsg").text(selfMsgs[x]) })
+        intakeSlider.noUiSlider.on("update",v=>{ let x=parseInt(v[0]); $("#intakeValue").text(x); $("#intakeMsg").text(intakeMsgs[x]) })
+        conSlider.noUiSlider.on("update",v=>{ let x=parseInt(v[0]); $("#conValue").text(x); $("#conMsg").text(conMsgs[x]) })
+
+
+        $("#calc").click(function () {
+
+            let d = $("#diagnosis").val()
+            if(d===""){ showAlert("Select a Diagnosis First"); return }
+
+            let v1=parseInt($("#ambValue").text())
+            let v2=parseInt($("#actValue").text())
+            let v3=parseInt($("#eviValue").text())
+            let v4=parseInt($("#selfValue").text())
+            let v5=parseInt($("#intakeValue").text())
+            let v6=parseInt($("#conValue").text())
+
+            if([v1,v2,v3,v4,v5,v6].includes(0)){
+                showAlert("Slide All Activities to View PPS Rating")
+                return
+            }
+
+            let score = Math.round((v1+v2+v3+v4+v5+v6)/6)
+
+            let msg=""
+
+            if(score <= 30)
+                msg="PPS Rating ~ "+score+"%. A patient with "+d+" and a PPS rating of "+score+"% or less may be eligible for hospice care."
+            else if(score <= 50)
+                msg="PPS Rating ~ "+score+"%. Function significantly reduced."
+            else if(score <= 70)
+                msg="PPS Rating ~ "+score+"%. Moderate decline. Regular monitoring advised."
+            else
+                msg="PPS Rating ~ "+score+"%. High functional status."
+
+            showAlert(msg)
+        });
+
+            $("#save").click(function(){
+        if($("#diagnosis").val()===""){ alert("Please choose a diagnosis first."); return; }
+        let amb = parseInt($("#ambValue").text())||0;
+        let act = parseInt($("#actValue").text())||0;
+        let evi = parseInt($("#eviValue").text())||0;
+        let selfc = parseInt($("#selfValue").text())||0;
+        let intake = parseInt($("#intakeValue").text())||0;
+        let con = parseInt($("#conValue").text())||0;
+        let finalScore = (amb + act + evi + selfc + intake + con) / 
+        let data = {
+            Diagnosis: $("#diagnosis").val(),
+            Ambulation: amb,
+            Activity: act,
+            Evidence: evi,
+            SelfCare: selfc,
+            Intake: intake,
+            Consciousness: con,
+            FinalScore: finalScore
+        };
+        $.ajax({
+            url: "/Pps/SaveResult",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            success: function(res){ alert("Saved Successfully"); },
+            error: function(xhr){ alert("Save failed: " + (xhr.responseText || xhr.statusText)); }
+        });
+    });
+
+
+    })
+</script>

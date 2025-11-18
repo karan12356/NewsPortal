@@ -17,6 +17,7 @@ namespace ass1Karan.Models
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<ActivityLog> ActivityLogs { get; set; }
+        public DbSet<PpsResult> PpsResults { get; set; }
 
 
     }
