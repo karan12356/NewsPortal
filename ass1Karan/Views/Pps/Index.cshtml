@@ -234,35 +234,35 @@
             showAlert(msg)
         });
 
-            $("#save").click(function(){
-        if($("#diagnosis").val()===""){ alert("Please choose a diagnosis first."); return; }
-        let amb = parseInt($("#ambValue").text())||0;
-        let act = parseInt($("#actValue").text())||0;
-        let evi = parseInt($("#eviValue").text())||0;
-        let selfc = parseInt($("#selfValue").text())||0;
-        let intake = parseInt($("#intakeValue").text())||0;
-        let con = parseInt($("#conValue").text())||0;
-        let finalScore = (amb + act + evi + selfc + intake + con) / 
-        let data = {
-            Diagnosis: $("#diagnosis").val(),
-            Ambulation: amb,
-            Activity: act,
-            Evidence: evi,
-            SelfCare: selfc,
-            Intake: intake,
-            Consciousness: con,
-            FinalScore: finalScore
-        };
-        $.ajax({
-            url: "/Pps/SaveResult",
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(data),
-            success: function(res){ alert("Saved Successfully"); },
-            error: function(xhr){ alert("Save failed: " + (xhr.responseText || xhr.statusText)); }
-        });
-    });
+        $("#save").click(function () {
 
+            if($("#diagnosis").val()===""){ showAlert("Please choose a diagnosis first."); return }
+
+            let data={
+                Diagnosis:$("#diagnosis").val(),
+                Ambulation:parseInt($("#ambValue").text()),
+                Activity:parseInt($("#actValue").text()),
+                Evidence:parseInt($("#eviValue").text()),
+                SelfCare:parseInt($("#selfValue").text()),
+                Intake:parseInt($("#intakeValue").text()),
+                Consciousness:parseInt($("#conValue").text()),
+                FinalScore:(parseInt($("#ambValue").text())+
+                    parseInt($("#actValue").text())+
+                    parseInt($("#eviValue").text())+
+                    parseInt($("#selfValue").text())+
+                    parseInt($("#intakeValue").text())+
+                    parseInt($("#conValue").text()))/6
+            }
+
+            $.ajax({
+                url:"/Pps/SaveResult",
+                type:"POST",
+                contentType:"application/json",
+                data:JSON.stringify(data),
+                xhrFields: { withCredentials: true },
+                success:function(){ showAlert("Saved Successfully") }
+            })
+        })
 
     })
 </script>

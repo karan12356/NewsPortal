@@ -1,12 +1,54 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\karan\\source\\repos\\ass1Karan\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|c:\\users\\karan\\source\\repos\\ass1karan\\ass1karan\\views\\pps\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|solutionrelative:ass1karan\\views\\pps\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|c:\\users\\karan\\source\\repos\\ass1karan\\ass1karan\\controllers\\ppscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF35020B-B14D-4D77-A46D-A8CD09DDEF53}|ass1Karan\\ass1Karan.csproj|solutionrelative:ass1karan\\controllers\\ppscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PpsController.cs",
+              "DocumentMoniker": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Controllers\\PpsController.cs",
+              "RelativeDocumentMoniker": "ass1Karan\\Controllers\\PpsController.cs",
+              "ToolTip": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Controllers\\PpsController.cs",
+              "RelativeToolTip": "ass1Karan\\Controllers\\PpsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-18T19:58:29.23Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Views\\Pps\\Index.cshtml",
+              "RelativeDocumentMoniker": "ass1Karan\\Views\\Pps\\Index.cshtml",
+              "ToolTip": "C:\\Users\\karan\\source\\repos\\ass1Karan\\ass1Karan\\Views\\Pps\\Index.cshtml",
+              "RelativeToolTip": "ass1Karan\\Views\\Pps\\Index.cshtml",
+              "ViewState": "AgIAAN4AAAAAAAAAAAAcwAUBAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-18T19:54:36.407Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
