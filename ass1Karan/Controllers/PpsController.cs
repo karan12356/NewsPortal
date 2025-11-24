@@ -29,39 +29,44 @@ namespace ass1Karan.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveResult([FromBody] PpsResult data)
         {
-            var user = await _user.GetUserAsync(User);
-
-            if (user == null)
-                return Json(new { status = "error", message = "User not logged in" });
-
-            string email = user.Email;
-
-            var existing = await _db.PpsResults
-                .FirstOrDefaultAsync(x => x.UserEmail == email && x.Diagnosis == data.Diagnosis);
-
-            if (existing != null)
+            try
             {
-                existing.Ambulation = data.Ambulation;
-                existing.Activity = data.Activity;
-                existing.Evidence = data.Evidence;
-                existing.SelfCare = data.SelfCare;
-                existing.Intake = data.Intake;
-                existing.Consciousness = data.Consciousness;
-                existing.FinalScore = data.FinalScore;
-                existing.DateSaved = DateTime.Now;
+                var user = await _user.GetUserAsync(User);
+                if (user == null)
+                    return Json(new { status = "error", message = "User not logged in" });
 
+                string email = user.Email;
+
+                var existing = await _db.PpsResults
+                    .FirstOrDefaultAsync(x => x.UserEmail == email && x.Diagnosis == data.Diagnosis);
+
+                if (existing != null)
+                {
+                    existing.Ambulation = data.Ambulation;
+                    existing.Activity = data.Activity;
+                    existing.Evidence = data.Evidence;
+                    existing.SelfCare = data.SelfCare;
+                    existing.Intake = data.Intake;
+                    existing.Consciousness = data.Consciousness;
+                    existing.FinalScore = data.FinalScore;
+                    existing.DateSaved = DateTime.Now;
+
+                    await _db.SaveChangesAsync();
+                    return Json(new { status = "updated" });
+                }
+
+                data.UserEmail = email;
+                data.DateSaved = DateTime.Now;
+
+                _db.PpsResults.Add(data);
                 await _db.SaveChangesAsync();
-                return Json(new { status = "updated" });
+
+                return Json(new { status = "created" });
             }
-
-            data.UserEmail = email;
-            data.DateSaved = DateTime.Now;
-
-            _db.PpsResults.Add(data);
-            await _db.SaveChangesAsync();
-
-            return Json(new { status = "created" });
+            catch (Exception ex)
+            {
+                return Json(new { status = "error", message = ex.Message });
+            }
         }
-
     }
 }
