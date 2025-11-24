@@ -1,0 +1,47 @@
+﻿
+$primary-color: #1779ba;
+$accent-color: #ffae00;
+$dark-bg: #1c1c1c;
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f9f9f9;
+    color: #333;
+}
+
+.top-bar {
+    background: $dark-bg;
+    a
+
+{
+    color: white;
+    &:hover
+
+{
+    color: $accent-color;
+}
+
+}
+}
+
+.footer {
+    background: $dark-bg;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.button.alert {
+    background: $accent-color;
+    border-radius: 5px;
+    color: #fff;
+    &:hover
+
+{
+    background: darken($accent-color, 10%);
+}
+
+}
+
+.grid-container {
+    margin-top: 2rem;
+}

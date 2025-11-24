@@ -1,0 +1,229 @@
+﻿html {
+    background: #fff;
+}
+
+:root {
+    --accent: #5b2e90;
+    --heading: #5b2e90;
+    --track: #fff3dd;
+    --connect: #ffb655;
+    --handle: #ffb266;
+    --pill: #ffd07a;
+    --text: #222;
+}
+
+body {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background: #fff;
+    margin: 0;
+}
+
+.pps-page {
+    max-width: 930px;
+    margin: 18px auto;
+    padding: 0 18px;
+}
+
+.pps-header {
+    text-align: center;
+    margin-bottom: 14px;
+}
+
+    .pps-header h1 {
+        color: var(--heading);
+        font-size: 32px;
+        margin: 6px 0;
+        font-weight: 800;
+    }
+
+    .pps-header p {
+        color: #111;
+        font-size: 16px;
+        margin: 0 0 18px;
+        font-weight: 600;
+    }
+
+.pps-container {
+    background: #fff;
+    padding: 10px 6px;
+    border-radius: 4px;
+}
+
+.custom-select {
+    width: 100%;
+    position: relative;
+    margin: 6px 0 22px;
+}
+
+.select-head {
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #d2d2d2;
+    background: #fff;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.caret {
+    float: right;
+    color: #666;
+}
+
+.select-list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 58px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #e7e7e7;
+    max-height: 340px;
+    overflow: auto;
+    display: none;
+    z-index: 40;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.06);
+}
+
+    .select-list li {
+        list-style: none;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        border-bottom: 1px solid #f6f6f6;
+    }
+
+        .select-list li:hover {
+            background: var(--track);
+        }
+
+.dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex: 0 0 14px;
+}
+
+.pps-block {
+    padding: 14px 6px;
+    border-bottom: 1px solid #f6f6f6;
+}
+
+.label-head {
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+
+.msg-text {
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.slider-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.slider-el {
+    flex: 1;
+}
+
+.slider-value {
+    width: 56px;
+    padding: 8px;
+    border-radius: 14px;
+    background: #efefef;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid #ddd;
+}
+
+.noUi-target {
+    height: 6px !important;
+    background: var(--track) !important;
+    border-radius: 10px;
+    margin-top: 12px;
+}
+
+.noUi-base {
+    height: 6px !important;
+}
+
+.noUi-connect {
+    background: var(--connect) !important;
+}
+
+.noUi-handle {
+    height: 18px !important;
+    width: 18px !important;
+    border-radius: 50% !important;
+    background: var(--handle) !important;
+    border: none !important;
+    top: -7px !important;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.18) !important;
+}
+
+.noUi-pips .noUi-value {
+    display: none !important;
+}
+
+.noUi-pips .noUi-marker {
+    width: 8px !important;
+    height: 8px !important;
+    background: rgba(255,166,51,0.9) !important;
+    border-radius: 50% !important;
+    top: -6px !important;
+}
+
+.slider-disabled {
+    pointer-events: none;
+    opacity: 0.35;
+}
+
+.calc-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    background: var(--pill);
+    border: none;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin-top: 18px;
+    cursor: pointer;
+}
+
+.footer {
+    background: none;
+    padding: 0;
+    margin: 0;
+}
+
+.custom-alert {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--accent);
+    color: #fff;
+    padding: 18px 22px;
+    border-radius: 12px;
+    z-index: 9999;
+    font-weight: 700;
+}
+
+.close-x {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    cursor: pointer;
+    font-size: 20px;
+}
