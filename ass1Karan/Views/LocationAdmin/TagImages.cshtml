@@ -1,0 +1,184 @@
+﻿@model IEnumerable<ass1Karan.Models.TagImage>
+
+@{
+    ViewData["Title"] = "Manage Tag Images";
+}
+
+<div class="pps-page">
+    <header class="pps-header">
+        <h1>Tag Images</h1>
+        <p>Upload custom images for each service tag.</p>
+    </header>
+
+    <div class="pps-container">
+
+        <form method="post" enctype="multipart/form-data" action="/LocationAdmin/UploadTagImage">
+
+            <div class="pps-block">
+                <label class="label-head">Select Tag</label>
+                <select name="tag" class="pps-input">
+                    <option>All</option>
+                    <option>Hospice Care At Home</option>
+                    <option>Inpatient Care</option>
+                    <option>Offices & Home Medical Equipment</option>
+                </select>
+            </div>
+
+            <div class="pps-block">
+                <label class="label-head">Upload Image</label>
+                <input type="file" name="imageFile" class="pps-input" />
+            </div>
+
+            <button class="calc-btn" style="margin-top:20px;">Upload</button>
+        </form>
+
+        <hr style="margin:25px 0;" />
+
+        <table class="pps-table">
+            <tr>
+                <th>Tag</th>
+                <th>Image</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Tag</td>
+                    <td>
+                        <img src="~/uploads/tagImages/@item.ImageName" width="150" />
+                    </td>
+                </tr>
+            }
+        </table>
+
+
+        <a href="/LocationAdmin/Index" class="calc-btn back-btn" style="margin-top:20px;">Back</a>
+
+
+    </div>
+</div>
+<style>
+
+    .pps-page {
+        width: 80%;
+        margin: 40px auto;
+        font-family: "Segoe UI", Roboto, sans-serif;
+    }
+
+    .pps-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+        .pps-header h1 {
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #421a71;
+        }
+
+        .pps-header p {
+            font-size: 15px;
+            color: #666;
+        }
+
+    .pps-container {
+        background: #fff;
+        padding: 30px;
+        border-radius: 14px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .pps-block {
+        margin-bottom: 20px;
+    }
+
+    .label-head {
+        display: block;
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: #4a2a84;
+    }
+
+    .pps-input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #d5d5d5;
+        border-radius: 10px;
+        background: #fafafa;
+        font-size: 15px;
+        outline: none;
+        transition: 0.25s;
+    }
+
+        .pps-input:focus {
+            border-color: #7a47c3;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(122, 71, 195, 0.15);
+        }
+
+    .calc-btn {
+        padding: 12px 26px;
+        background: #5b2e90;
+        color: #fff;
+        border-radius: 10px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+        text-decoration: none;
+        font-size: 15px;
+        transition: 0.25s;
+    }
+
+        .calc-btn:hover {
+            background: #4a2476;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .calc-btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+    .pps-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 25px;
+        font-size: 15px;
+    }
+
+        .pps-table th {
+            background: #f5f0ff;
+            padding: 12px;
+            text-align: left;
+            color: #4a2a84;
+            font-weight: 700;
+            border-bottom: 2px solid #e3d9ff;
+        }
+
+        .pps-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .pps-table tr:hover {
+            background: #faf7ff;
+        }
+
+        .pps-table img {
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+    .back-btn {
+        background: #9a9a9a !important;
+    }
+
+        .back-btn:hover {
+            background: #7e7e7e !important;
+        }
+
+</style>

@@ -1,0 +1,140 @@
+﻿@model ass1Karan.Models.LocationEntry
+@removeTagHelper Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<div class="pps-page">
+    <header class="pps-header">
+        <h1>Edit: @Model.Title</h1>
+    </header>
+
+    <div class="pps-container">
+        <form method="post">
+            <input type="hidden" name="Id" value="@Model.Id" />
+
+            <div class="pps-block">
+                <label class="label-head">Title</label>
+                <input type="text" name="Title" class="pps-input" value="@Model.Title" />
+            </div>
+
+            <div class="pps-block">
+                <label class="label-head">Address</label>
+                <input type="text" name="Address" class="pps-input" value="@Model.Address" />
+            </div>
+
+            <div class="pps-block">
+                <label class="label-head">Phone</label>
+                <input type="text" name="Phone" class="pps-input" value="@Model.Phone" />
+            </div>
+
+            <div class="pps-block">
+                <label class="label-head">Directions URL</label>
+                <input type="text" name="DirectionsUrl" class="pps-input" value="@Model.DirectionsUrl" />
+            </div>
+
+            <div class="pps-block">
+                <label class="label-head">Tag</label>
+                <select name="Tag" class="pps-input">
+                    <option value="All" @(Model.Tag=="All"?"selected":"")>All</option>
+                    <option value="Hospice Care At Home" @(Model.Tag=="Hospice Care At Home"?"selected":"")>Hospice Care At Home</option>
+                    <option value="Inpatient Care" @(Model.Tag=="Inpatient Care"?"selected":"")>Inpatient Care</option>
+                    <option value="Offices & Home Medical Equipment" @(Model.Tag=="Offices & Home Medical Equipment"?"selected":"")>Offices & Home Medical Equipment</option>
+                </select>
+            </div>
+
+            <button class="calc-btn" style="margin-top:20px;">Update</button>
+            <a href="/LocationAdmin/Index" class="calc-btn cancel-btn">Cancel</a>
+
+
+        </form>
+    </div>
+</div>
+<style>
+    .pps-page {
+        width: 80%;
+        margin: 40px auto;
+        font-family: "Segoe UI", Roboto, sans-serif;
+    }
+
+    .pps-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+        .pps-header h1 {
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #421a71;
+        }
+
+    .pps-container {
+        background: #fff;
+        padding: 35px;
+        border-radius: 14px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .pps-block {
+        margin-bottom: 22px;
+    }
+
+    .label-head {
+        display: block;
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: #4a2a84;
+    }
+
+    .pps-input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #d7d7d7;
+        border-radius: 10px;
+        background: #fafafa;
+        font-size: 15px;
+        outline: none;
+        transition: all 0.25s ease;
+    }
+
+        .pps-input:focus {
+            border-color: #7a47c3;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(122, 71, 195, 0.15);
+        }
+
+    .calc-btn {
+        padding: 12px 26px;
+        background: #5b2e90;
+        color: #fff;
+        border-radius: 10px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+        text-decoration: none;
+        font-size: 15px;
+        transition: 0.25s ease;
+        margin-right: 10px;
+    }
+
+        .calc-btn:hover {
+            background: #4a2476;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .calc-btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        .calc-btn.cancel-btn {
+            background: #999 !important;
+        }
+
+            .calc-btn.cancel-btn:hover {
+                background: #777 !important;
+            }
+
+</style>

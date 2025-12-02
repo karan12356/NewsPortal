@@ -35,6 +35,9 @@
                 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                 {
                     <li><a asp-controller="Admin" asp-action="Dashboard">⚙️ Admin Dashboard</a></li>
+                    <li><a asp-controller="LocationAdmin" asp-action="Index">Location</a></li>
+                   
+
                 }
             </ul>
         </div>
@@ -48,7 +51,7 @@
                     </li>
                     <li><a class="nav-link" asp-controller="Profile" asp-action="Index">👤 Profile</a></li>
                     <li><a class="nav-link" asp-controller="Pps" asp-action="Index">Pps</a></li>
-
+                    <li><a class="nav-link" asp-controller="UserLocations" asp-action="Index">Location</a></li>
                     <li>
                         <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
                             <button type="submit" class="button small alert">🚪 Logout</button>

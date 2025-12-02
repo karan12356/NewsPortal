@@ -18,6 +18,8 @@ namespace ass1Karan.Models
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<ActivityLog> ActivityLogs { get; set; }
         public DbSet<PpsResult> PpsResults { get; set; }
+        public DbSet<LocationEntry> LocationEntries { get; set; }
+        public DbSet<TagImage> TagImages { get; set; }
 
 
     }

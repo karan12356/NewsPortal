@@ -1,0 +1,134 @@
+﻿@model IEnumerable<ass1Karan.Models.LocationEntry>
+
+<div class="pps-page">
+    <header class="pps-header">
+        <h1>Location Entries</h1>
+        <p>Manage your location entries here.</p>
+    </header>
+
+    <div class="pps-container">
+
+        <a href="/LocationAdmin/Create" class="calc-btn" style="margin-bottom:15px;">+ Add New Entry</a>
+
+        <table class="pps-table">
+            <tr>
+                <th>Title</th>
+                <th>Tag</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Tag</td>
+                    <td>@item.Phone</td>
+
+                    <td>
+                        <a href="/LocationAdmin/Edit/@item.Id" class="calc-btn edit-btn">Edit</a>
+                        <a href="/LocationAdmin/Delete/@item.Id" class="calc-btn delete-btn">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <a href="/LocationAdmin/TagImages" class="calc-btn tag-btn2" style="margin-top:15px;">Manage Tag Images</a>
+
+
+    </div>
+</div>
+<style>
+    .pps-page {
+        width: 80%;
+        margin: 40px auto;
+        font-family: "Segoe UI", Roboto, sans-serif;
+    }
+
+    .pps-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+        .pps-header h1 {
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #421a71;
+        }
+
+        .pps-header p {
+            font-size: 15px;
+            color: #666;
+        }
+
+    .pps-container {
+        background: #fff;
+        padding: 35px;
+        border-radius: 14px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .calc-btn {
+        padding: 10px 20px;
+        background: #5b2e90;
+        color: #fff;
+        border-radius: 10px;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+        text-decoration: none;
+        font-size: 14px;
+        transition: 0.25s ease;
+    }
+
+        .calc-btn:hover {
+            background: #4a2476;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .calc-btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+    .pps-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        font-size: 15px;
+    }
+
+        .pps-table th {
+            background: #f5f0ff;
+            padding: 12px;
+            text-align: left;
+            color: #4a2a84;
+            font-weight: 700;
+            border-bottom: 2px solid #e3d9ff;
+        }
+
+        .pps-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .pps-table tr:hover {
+            background: #faf7ff;
+        }
+
+    .edit-btn {
+        background: #0096FF !important;
+    }
+
+    .delete-btn {
+        background: #C21A2B !important;
+    }
+
+    .tag-btn2 {
+        background: #884EA0 !important;
+    }
+
+</style>

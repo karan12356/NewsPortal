@@ -1,0 +1,47 @@
+﻿@model ass1Karan.Models.LocationEntry
+
+<div class="pps-page">
+    <header class="pps-header">
+        <h1>Delete Entry</h1>
+        <p>Are you sure you want to delete <strong>@Model.Title</strong>?</p>
+    </header>
+
+    <div class="pps-container">
+        <form method="post">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <button class="calc-btn delete-btn">Delete</button>
+            <a href="/LocationAdmin/Index" class="calc-btn cancel-btn">Cancel</a>
+
+        </form>
+    </div>
+</div>
+<style>
+    .delete-title {
+        font-size: 26px;
+        font-weight: 800;
+        color: #c21a2b;
+        margin-bottom: 5px;
+    }
+
+    .delete-warning {
+        font-size: 15px;
+        color: #444;
+    }
+
+    .delete-btn {
+        background: #C21A2B !important;
+    }
+
+        .delete-btn:hover {
+            background: #a01723 !important;
+        }
+
+    .cancel-btn {
+        background: #999 !important;
+    }
+
+        .cancel-btn:hover {
+            background: #777 !important;
+        }
+
+</style>

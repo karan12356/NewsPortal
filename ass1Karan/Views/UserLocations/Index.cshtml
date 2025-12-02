@@ -1,0 +1,134 @@
+﻿@model IEnumerable<ass1Karan.Models.LocationEntry>
+
+@{
+    var tag = ViewBag.Tag as string;
+    var page = (int)ViewBag.Page;
+    var totalPages = (int)ViewBag.TotalPages;
+    var tagImg = ViewBag.TagImageName as string;
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="stylesheet" href="~/css/Location.css" />
+
+
+<h1 style="text-align:center; margin-top:10px; margin-bottom:30px; font-size:32px; font-weight:800;">
+    Locations & Service Areas
+</h1>
+
+<div class="loc-container">
+    <div class="left-map">
+        @if (!string.IsNullOrEmpty(tagImg))
+        {
+            <img src="~/uploads/tagImages/@tagImg" />
+        }
+        else
+        {
+            <iframe src="https://www.google.com/maps/d/embed?mid=1JNNRw9Ygkdg3sMZrB3fBYq3WqsQ"></iframe>
+        }
+    </div>
+
+    <div class="right-panel">
+
+        <div class="tag-buttons">
+            <a href="/UserLocations/Index?tag=All"
+               class="tag-btn @(tag == "All" ? "active" : "")">
+                Our Local Service Area
+            </a>
+
+            <a href="/UserLocations/Index?tag=Hospice%20Care%20At%20Home"
+               class="tag-btn @(tag == "Hospice Care At Home" ? "active" : "")">
+                Hospice Care At Home
+            </a>
+
+            <a href="/UserLocations/Index?tag=Inpatient%20Care"
+               class="tag-btn @(tag == "Inpatient Care" ? "active" : "")">
+                Inpatient Care
+            </a>
+
+            <a href="/UserLocations/Index?tag=Offices%20%26%20Home%20Medical%20Equipment"
+               class="tag-btn @(tag == "Offices & Home Medical Equipment" ? "active" : "")">
+                Offices & Home Medical Equipment
+            </a>
+        </div>
+
+        @foreach (var item in Model)
+        {
+            <div class="location-card">
+                <div class="tag-label">@item.Tag.ToUpper()</div>
+                <div class="location-title">@item.Title</div>
+                <div>@item.Address</div>
+
+                <div class="loc-buttons">
+                    @if (!string.IsNullOrEmpty(item.Phone))
+                    {
+                        <a class="btn-call" href="tel:@item.Phone">
+                            <i class="fa fa-phone"></i> @item.Phone
+                        </a>
+                    }
+
+                    @if (!string.IsNullOrEmpty(item.DirectionsUrl))
+                    {
+                        <a class="btn-dir" href="@item.DirectionsUrl" target="_blank">
+                            <i class="fa fa-location-dot"></i> Directions
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+
+        @if (totalPages > 1)
+        {
+            <div class="pagination">
+                @if (page > 1)
+                {
+                    <a class="page-arrow" href="/UserLocations/Index?tag=@tag&page=@(page - 1)">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                }
+
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <a href="/UserLocations/Index?tag=@tag&page=@i"
+                       class="page-number @(i == page ? "active" : "")">
+                        @i
+                    </a>
+                }
+
+                @if (page < totalPages)
+                {
+                    <a class="page-arrow" href="/UserLocations/Index?tag=@tag&page=@(page + 1)">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                }
+            </div>
+        }
+
+
+    </div>
+</div>
+<style>
+    .btn-call,
+    .btn-dir,
+    .tag-btn,
+    .page-number,
+    .page-arrow {
+        text-decoration: none !important;
+        display: inline-block;
+    }
+
+    .page-number {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2px solid #5b2e90;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 700;
+        color: #5b2e90;
+        text-decoration: none !important;
+        line-height: 36px;
+    }
+
+</style>

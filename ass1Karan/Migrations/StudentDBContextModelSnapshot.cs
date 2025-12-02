@@ -274,6 +274,39 @@ namespace ass1Karan.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("ass1Karan.Models.LocationEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DirectionsUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LocationEntries");
+                });
+
             modelBuilder.Entity("ass1Karan.Models.PpsResult", b =>
                 {
                     b.Property<int>("Id")
@@ -378,6 +411,27 @@ namespace ass1Karan.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SavedArticles");
+                });
+
+            modelBuilder.Entity("ass1Karan.Models.TagImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TagImages");
                 });
 
             modelBuilder.Entity("ass1Karan.Models.User", b =>

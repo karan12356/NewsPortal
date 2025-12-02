@@ -24,7 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\uploads\" />
+    <Folder Include="wwwroot\uploads\locationEntries\" />
+    <Folder Include="wwwroot\uploads\tagImages\" />
   </ItemGroup>
 
 </Project>
